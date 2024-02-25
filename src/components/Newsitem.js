@@ -1,14 +1,14 @@
 import React, { Component } from 'react'
 
 export default class Newsitem extends Component {
-  // cutDescription = (description, maxLength) => {
-  //   // Check if description is not null and has a length property
-  //   if (description && description.length) {
-  //     return description.length > maxLength ? `${description.substring(0, maxLength)}...` : description;
-  //   } else {
-  //     return ''; // or any default value you prefer if description is null
-  //   }
-  // };
+  cutDescription = (description, maxLength) => {
+    // Check if description is not null and has a length property
+    if (description && description.length) {
+      return description.length > maxLength ? `${description.substring(0, maxLength)}...` : description;
+    } else {
+      return ''; // or any default value you prefer if description is null
+    }
+  };
   render() {
     let {title,description,imageurl,url,author,publishedAt,name} = this.props;
     return (
@@ -25,8 +25,8 @@ export default class Newsitem extends Component {
          {name}
        </span>
        </div>
-       <h5 className="card-title">{title}... </h5>
-      <p className="card-text">{description}...</p>
+       <h5 className="card-title">{this.cutDescription(title, 70)}... </h5>
+      <p className="card-text">{this.cutDescription(description, 70)}...</p>
       <p className="card-text"><small className="text-body-secondary">author {author?author:"unknown"}  on{new Date(publishedAt).toGMTString()}</small></p>
       <a href={url} target='_blank' rel="noreferrer" className="btn btn-sm btn-primary">Read more</a>
      </div>

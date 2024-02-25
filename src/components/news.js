@@ -1,8 +1,6 @@
 import React, { Component } from 'react'
 import Newsitem from './Newsitem'
 import Spinner from './spinner'
-
-// import PropTypes from 'prop-types'
 import InfiniteScroll from "react-infinite-scroll-component";
 
 
@@ -18,8 +16,8 @@ export default class News extends Component {
     }
   }
 
-
   async updateNews(){
+    try{
     this.props.setprogress(10)
     let url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=70b1607c16e84ebea978baa76761495e&page=${this.state.page}&pagesize=${this.props.pagesize}`
     let data = await fetch(url)
@@ -28,7 +26,10 @@ export default class News extends Component {
     this.setState({articles: parsedata.articles,
       loading: false})
     this.props.setprogress(100)
+  }catch(error){
+    console.log(error)
   }
+}
   
 
   async componentDidMount(){
@@ -36,8 +37,9 @@ export default class News extends Component {
     
   }
 
+
    fetchMoreData = async() =>{
-    
+    try{
      let url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=70b1607c16e84ebea978baa76761495e&page=${this.state.page+1}&pagesize=${this.props.pagesize}`
      this.setState({page: this.state.page+1})
     let data = await fetch(url)
@@ -49,17 +51,20 @@ export default class News extends Component {
       // Disable infinite scroll if all data is loaded
       this.setState({ hasMore: false });
     }
-  
+  }catch(error){
+    console.log(error)
+  }
+
+  }
   
   render() {
     return (
       < >
       <div className='container   mt-4 '>
-        {/* <h2 className='container text-centre my-5'>News monkey top headlines</h2>     */}
-           
-        
+
         <InfiniteScroll
-          dataLength={this.state.articles.length}
+        
+          dataLength={this.state.articles ? this.state.articles.length : 0}
           next={this.fetchMoreData}
           hasMore={this.state.articles.length !== this.state.totalResults}
           loader={<h4><Spinner/> </h4>}
@@ -77,13 +82,6 @@ export default class News extends Component {
           </div>
           </div>
           </InfiniteScroll>
-          
-       
-        {/* <div className="container d-flex justify-content-between">
-        <button disabled={this.state.page<=1} type="button" className="btn btn-dark" onClick={this.handleprev}>&larr;previous</button>
-        <button type="button" className="btn btn-dark" onClick={this.handleNext}>next&rarr;</button>
-        {/* disabled="this.state.page+1>Math.ceil(this.state.totalResults/20)"  */}
-        {/* </div> */} 
         </div>
           </>
          

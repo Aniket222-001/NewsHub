@@ -18,16 +18,7 @@ export default class News extends Component {
     }
   }
 
-  // static defaultproptype = {
-  //        country: 'in',
-  //        pagesize: 5,
-  //        category: 'general'
-  // }
-  // static propType = {
-  //        country: PropTypes.string,
-  //        pagesize: PropTypes.number,
-  //        category: PropTypes.string
-  // }
+
   async updateNews(){
     this.props.setprogress(10)
     let url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=70b1607c16e84ebea978baa76761495e&page=${this.state.page}&pagesize=${this.props.pagesize}`
@@ -44,20 +35,9 @@ export default class News extends Component {
     this.updateNews();
     
   }
-  // handleNext = async ()=>{  
-  //   this.setState({page: this.state.page+1})
-  // this.updateNews();
-  //   }
-  
-  // handleprev = async ()=>{
-    
-  //   this.setState({page: this.state.page-1}
-  //   )
-  //   this.updateNews();
-  // }
 
    fetchMoreData = async() =>{
-    try{
+    
      let url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=70b1607c16e84ebea978baa76761495e&page=${this.state.page+1}&pagesize=${this.props.pagesize}`
      this.setState({page: this.state.page+1})
     let data = await fetch(url)
@@ -69,9 +49,7 @@ export default class News extends Component {
       // Disable infinite scroll if all data is loaded
       this.setState({ hasMore: false });
     }
-  }catch(error){console.log(error)}
-
-  }
+  
   
   render() {
     return (

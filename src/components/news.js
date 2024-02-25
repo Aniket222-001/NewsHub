@@ -65,7 +65,7 @@ export default class News extends Component {
     this.setState({articles: this.state.articles.concat(parsedata.articles),
     totalResults: parsedata.totalResults,
      loading: false})
-     if (this.state.articles.length === this.state.totalResults) {
+     if (this.state.articles && this.state.articles.length === this.state.totalResults) {
       // Disable infinite scroll if all data is loaded
       this.setState({ hasMore: false });
     }

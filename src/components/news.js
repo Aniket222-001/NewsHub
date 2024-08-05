@@ -19,7 +19,8 @@ export default class News extends Component {
   async updateNews(){
     try{
     this.props.setprogress(10)
-    let url = ` https://api.thenewsapi.com/v1/news/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=e7hhrTjmzUFkd925BgvAn1FqvTWDFx79tyDHL4eN&page=${this.state.page}&pagesize=${this.props.pagesize}`
+    // let url = ` https://api.thenewsapi.com/v1/news/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=e7hhrTjmzUFkd925BgvAn1FqvTWDFx79tyDHL4eN&page=${this.state.page}&pagesize=${this.props.pagesize}`
+    let url = 'https://api.thenewsapi.com/v1/news/headlines?locale=us&language=en&api_token=e7hhrTjmzUFkd925BgvAn1FqvTWDFx79tyDHL4eN'
     let data = await fetch(url)
     this.props.setprogress(30)
     let parsedata = await data.json();
